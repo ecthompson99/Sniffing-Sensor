@@ -63,62 +63,65 @@ def plot_river(exp, plt, np):
     
 # Clean time
 
-def Nitrogen(clean_time, ser, intensities, spec, delay_time):
+def Nitrogen(clean_time, ser, intensities, spec, elapse):
     ser.write(b'A')
-
+    last_time = elapse[-1]
     i = 0
     start_time = time.time()
     
     while i < clean_time:
+        time.sleep(1)
         intensities.append(spec.intensities())
         i = time.time() - start_time
-        time.sleep(1/delay_time)
+        elapse.append(i+last_time)
     
     ser.write(b'a')
     
 # Scan time
 
-def IPA(scan_time, ser, intensities, spec, delay_time):
+def IPA(scan_time, ser, intensities, spec, delay_time, elapse):
     ser.write(b'D')
-
+    last_time = elapse[-1]
     i = 0
     start_time = time.time()
     
     while i < scan_time:
+        time.sleep(1/delay_time)
         intensities.append(spec.intensities())
         i = time.time() - start_time
-        time.sleep(1/delay_time)
+        elapse.append(i+last_time)
     
     ser.write(b'd')
     
 # Water
 
-def Water(scan_time, ser, intensities, spec, delay_time):
+def Water(scan_time, ser, intensities, spec, delay_time, elapse):
     
     ser.write(b'C')
-
+    last_time = elapse[-1]
     i = 0
     start_time = time.time()
     
     while i < scan_time:
+        time.sleep(1/delay_time)
         intensities.append(spec.intensities())
         i = time.time() - start_time
-        time.sleep(1/delay_time)
+        elapse.append(i+last_time)
 
-    
     ser.write(b'c')
     
 
-def EtOH(scan_time, ser, intensities, spec, delay_time):
+def Ethanol(scan_time, ser, intensities, spec, delay_time, elapse):
     ser.write(b'B')
-
+    last_time = elapse[-1]
     i = 0
     start_time = time.time()
     
     while i < scan_time:
+        time.sleep(1/delay_time)
         intensities.append(spec.intensities())
         i = time.time() - start_time
-        time.sleep(1/delay_time)
+        elapse.append(i+last_time)
     
     ser.write(b'b')
     
