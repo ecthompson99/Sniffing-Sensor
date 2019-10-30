@@ -60,21 +60,24 @@ def plot_river(exp, plt, np):
     
     plt.tight_layout()
     
-    
 # Clean time
 
-def Nitrogen(clean_time, ser, intensities, spec, elapse):
+def Nitrogen(clean_time, ser, intensities, spec, elapse, purge=False):
     ser.write(b'A')
-    last_time = elapse[-1]
-    i = 0
-    start_time = time.time()
     
-    while i < clean_time:
-        time.sleep(1)
-        intensities.append(spec.intensities())
-        i = time.time() - start_time
-        elapse.append(i+last_time)
-    
+    if not purge: 
+        last_time = elapse[-1]
+        i = 0
+        start_time = time.time()
+
+        while i < clean_time:
+            time.sleep(1)
+            intensities.append(spec.intensities())
+            i = time.time() - start_time
+            elapse.append(i+last_time)
+    else:
+        time.sleep(clean_time)
+  
     ser.write(b'a')
     
 # Scan time
