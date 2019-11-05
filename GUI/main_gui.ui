@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>web.png</normaloff>web.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidge">
    <widget class="QScrollArea" name="userScroll">
     <property name="geometry">
@@ -73,8 +77,14 @@
         <layout class="QGridLayout" name="settingsInput">
          <item row="0" column="1">
           <widget class="QLineEdit" name="unameInput">
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
+           </property>
            <property name="statusTip">
             <string>Input user name</string>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
            </property>
            <property name="inputMask">
             <string/>
@@ -89,6 +99,9 @@
             <number>0</number>
            </property>
            <property name="readOnly">
+            <bool>false</bool>
+           </property>
+           <property name="clearButtonEnabled">
             <bool>false</bool>
            </property>
           </widget>
