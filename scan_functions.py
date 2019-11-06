@@ -62,21 +62,23 @@ def plot_river(exp, plt, np):
     
 # Clean time
 
+def Purge(purge_time, ser): 
+    ser.write(b'AB')
+    time.sleep(purge_time)
+    ser.write(b'ab')
+    
 def Nitrogen(clean_time, ser, intensities, spec, elapse, purge=False):
     ser.write(b'A')
     
-    if not purge: 
-        last_time = elapse[-1]
-        i = 0
-        start_time = time.time()
+    last_time = elapse[-1]
+    i = 0
+    start_time = time.time()
 
-        while i < clean_time:
-            time.sleep(1)
-            intensities.append(spec.intensities())
-            i = time.time() - start_time
-            elapse.append(i+last_time)
-    else:
-        time.sleep(clean_time)
+    while i < clean_time:
+        time.sleep(1)
+        intensities.append(spec.intensities())
+        i = time.time() - start_time
+        elapse.append(i+last_time)
   
     ser.write(b'a')
     
